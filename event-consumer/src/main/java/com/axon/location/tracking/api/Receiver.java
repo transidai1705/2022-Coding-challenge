@@ -29,7 +29,11 @@ public class Receiver {
 			case OfficerGoesOffline:
 				dataStore.setOfficers(dataStore.getOfficers().stream().filter(i -> i.getNumber() != eventMessage.getOfficeId()).collect(Collectors.toList()));
 			case OfficerLocationUpdated:
-
+				dataStore.getOfficers().forEach(i -> {
+					if (i.getNumber() == eventMessage.getOfficeId()) {
+						i.setLoc(eventMessage.getLoc());
+					}
+				});
 			case OfficerGoesOnline:
 		}
 	}
